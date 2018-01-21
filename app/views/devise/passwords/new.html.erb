@@ -1,0 +1,24 @@
+<div class="card login-card">
+  <div class="card-content text-left">
+    <h4 class="title">Remind password</h4>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <br>
+        <%= render 'validation_errors' %>
+        <div class="form-group label-floating <%= 'is-empty' if @user[:email].blank? %>">
+          <%= f.label :email, class: 'control-label required' %>
+          <%= f.email_field :email, class: 'form-control', required: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+          <span class="text-danger"></span>
+          <span class="text-danger"></span>
+          <span class="material-input"></span>
+          <span class="material-input"></span>
+        </div>
+        <div class="form-group">
+          <%= f.submit 'Send', class: 'btn btn-raised btn-primary wide btn-card-login-submit' %>
+        </div>
+        <div class="down-box">
+          Have an account? <%= link_to('Sign In', new_user_session_path) %>
+        </div>
+    <% end %>
+  </div>
+</div>
+

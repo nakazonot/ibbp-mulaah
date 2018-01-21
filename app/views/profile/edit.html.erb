@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 shift-top">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h2>Profile</h2>
+        <%= form_for current_user, url: { action: 'update' }, html: { class: 'form-horizontal' } do |f| %>
+            <% if current_user.errors.any? %>
+              <div class="alert alert-dismissible alert-danger" style="margin-bottom: 5px;">
+                <% current_user.errors.full_messages.each do |message| %>
+                    <p>— <%= message %></p>
+                <% end %>
+              </div>
+            <% end %>
+          <br>
+          <fieldset>
+            <div class="form-group <%= 'has-error' if current_user.errors[:name].present? %>">
+              <%= f.label :name, class: 'col-md-3 control-label  disable-material' %>
+              <div class="col-md-9">
+                <%= f.text_field :name, class: 'form-control disable-material', placeholder: 'Name' %>
+              </div>
+            </div>
+            <div class="form-group <%= 'has-error' if current_user.errors[:email].present? %>">
+              <%= f.label :email, class: 'col-md-3 control-label  disable-material', placeholder: 'Email' %>
+              <div class="col-md-9">
+                <%= f.email_field :email, class: 'form-control disable-material', disabled: true %>
+              </div>
+            </div>
+            <div class="form-group <%= 'has-error' if current_user.errors[:phone].present? %>">
+              <%= f.label :phone, class: 'col-md-3 control-label  disable-material' %>
+              <div class="col-md-9">
+                <%= f.text_field :phone, class: 'form-control disable-material', placeholder: 'Phone' %>
+              </div>
+            </div>
+            <% if can?(:input, :eth_wallet) %>
+              <p class="form-token-msg">Please, be careful! Your ETH Wallet must support ERC-20.</p>
+              <div class="form-group <%= 'has-error' if current_user.errors[:eth_wallet].present? %>">
+                <%= f.label :eth_wallet, class: 'col-md-3 control-label disable-material' %>
+                <div class="col-md-9">
+                  <%= f.text_field :eth_wallet, class: 'form-control disable-material', placeholder: User.human_attribute_name(:eth_wallet) %>
+                </div>
+              </div>
+            <% end %>
+            <% if can?(:input, :btc_wallet) %>
+              <div class="form-group <%= 'has-error' if current_user.errors[:btc_wallet].present? %>">
+                <%= f.label :btc_wallet, class: 'col-md-3 control-label disable-material' %>
+                <div class="col-md-9">
+                  <%= f.text_field :btc_wallet, class: 'form-control disable-material', placeholder: User.human_attribute_name(:btc_wallet) %>
+                </div>
+              </div>
+            <% end %>
+            <% unless current_user.uses_default_password %>
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                  <%= f.button 'Change password', id: 'button-for-change-pasword', class: 'btn btn-raised btn-primary wide' %>
+                </div>
+              </div>
+            <% end %>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <%= f.submit 'Save changes', id: 'button-for-save-changes', class: 'btn btn-raised btn-primary wide' %>
+              </div>
+            </div>
+          </fieldset>
+        <% end %>
+
+        <% if can?(:promo_token_enabled, :ico) %>
+          <% promo_token_address = PaymentAddress.promo_token_adress_by_user(current_user.id) %>
+          <div class="divider"></div>
+          <h4>Your Promo Token address (balance: <%= TokenTransaction.promo_token_balance_by_user(current_user.id) %>)</h4>
+          <%= t('profile.promocodes.promotokens.description_html', promotoken_code: @promo_token&.code) %>
+          <form class="promo-token-address">
+            <div class="box">
+              <p id="promo-token-address-box"><%= promo_token_address.present? ? promo_token_address.payment_address : '' %></p>
+            </div>
+            <% unless promo_token_address.present? %>
+              <button type="button" id="get-promo-token-address" class="btn">Get Address</button>
+            <% end %>
+            <button type="button"  data-clipboard-target="#promo-token-address-box" id="promo-token-address-copy-link" class="btn <%= promo_token_address.present? ? '' : 'hide' %>">Copy link</button>
+          </form>
+        <% end %>
+
+
+        <% if can? :input, :kyc %>
+          <div class="divider"></div>
+          <% if current_user.kyc_date.present? %>
+            <h4>
+              Identity Verification: 
+              <% if current_user.kyc_result %>
+                <span style="color: green;">KYC Passed</span>
+              <% else %>
+                <span style="color: red;">KYC Failed</span>
+              <% end %>
+            </h4>
+          <% end %>
+          <% if t('profile.kyc.widgets_html').present? && !current_user.kyc_result %>
+            <%= t('profile.kyc.widgets_html') %>
+          <% end %>
+        <% end %>
+
+        <div class="divider"></div>
+        <h4>2-Step Verification</h4>
+        <p class="text-justify">Applications for generating 2-step verification codes allow you to receive codes even without connecting to the network and cellular communications.
+          Use any application to generate 2-step verification codes. For example, Google Authenticator.</p>
+        <div class="row">
+          <div class="col-md-6">
+            <input id="btn-switch-2fa" data-password-default="<%= current_user.uses_default_password %>" data-2fa-status="<%= current_user.otp_required_for_login? ? 'enabled' : 'disabled' %>" type="button" class="btn btn-raised btn-danger wide" value="<%= current_user.otp_required_for_login? ? 'Disable 2FA' : 'Enable 2FA' %>">
+          </div>
+          <div class="col-md-6">
+            <input type="button" id="btn-regenerate-backup-codes" class="btn btn-raised btn-info wide btb-bg-color-black" value="Regenerate backup codes" <%= current_user.two_factor_enabled? ? '' : 'disabled' %>>
+          </div>
+        </div>
+
+        <% if can?(:referral_system_enabled, :ico) %>
+          <div class="divider"></div>
+          <h4>Your referral link</h4>
+          <form class="refer-link">
+            <div class="box notranslate">
+              <p id="refer-link-box"><%= referral_link(current_user) %></p>
+            </div>
+            <button type="button" data-clipboard-target="#refer-link-box" id="refer-copy-link" class="btn">Copy link</button>
+          </form>
+          <%= t('main.step.referral_link_html', percent: @config_parameters['user.referral_bonus_percent'].first) %>
+          <% if @config_parameters['referral.social_share_buttons'].present? %>
+            <%= social_share_button_tag(@config_parameters['site.og.title'], url: referral_link(current_user), allow_sites: @config_parameters['referral.social_share_buttons']) %>
+          <% end %>
+          <br>
+          <div class="divider"></div>
+          <div id="referrals-table" class="investment-table">
+            <%= smart_listing_render(:referrals) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render '2fa_modals' %>
+<%= render 'change_password_modal' %>

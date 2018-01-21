@@ -1,0 +1,20 @@
+<div class="card login-card">
+  <div class="card-content text-left">
+    <h4 class="title">Change your password</h4>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <br>
+        <%= render 'validation_errors' %>
+        <%= f.hidden_field :reset_password_token %>
+
+        <%= render 'password_fields', user: @user, f: f %>
+
+        <div class="form-group">
+          <%= f.submit 'Change my password', class: 'btn btn-raised btn-primary wide', style: 'z-index:10000;' %>
+        </div>
+
+        <div class="down-box">
+          Have an account? <%= link_to('Sign In', new_user_session_path) %>
+        </div>
+    <% end %>
+  </div>
+</div>

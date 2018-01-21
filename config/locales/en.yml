@@ -1,0 +1,268 @@
+en:
+  activerecord:
+    attributes:
+      promocode:
+        comment: "Comment (not visible to users)"
+        discount_amount: Value
+        is_aggregated_discount: "Combine with ICO stage discount"
+        is_onetime: "Limit to 1 use per user"
+        num_total: "Usage limit per promocode"
+      translation: ~
+      user:
+        eth_wallet: "ETH Wallet"
+        btc_wallet: "BTC Wallet"
+        otp_attempt: "Two-factor authentication code"
+        oauth_email_confirmation_token: Confirmation email token
+      kyc_verification:
+        dob: 'Date of birth'
+    models:
+      ico_stage:
+        one: "ICO Stage"
+        other: "ICO Stages"
+  custom_css: ""
+  custom_js: ""
+  live_chat_html: ""
+  main:
+    contract_template_html: "<p>%{time_now}</p><h3 class=\"center\">MYCOMPANY<br>CROWDSALE TERMS</h3><p class=\"justify\"> PLEASE READ THESE CROWDSALE TERMS CAREFULLY. NOTE THAT SECTION N CONTAINS A BINDING ARBITRATION CLAUSE AND CLASS ACTION WAIVER, WHICH AFFECT YOUR LEGAL RIGHTS. IF YOU DO NOT AGREE TO THESE TERMS, DO NOT PURCHASE TOKENS.</p><p>You %{name} (“Purchaser,” “You”), the user of an email address %{email}, purchase of %{coin_amount} tokens <u>(\"Tokens\")</u> during the Crowdsale (as defined below) from MYCOMPANY (the <u>\"Company,\" \"we,\"</u> or <u>\"us\"</u>) is subject to these terms of sale <u>(\"Terms\")</u>. Each of you and Company is a <u>\"Party\"</u> and, together, the <u>\"Parties.\"</u></p><p>You and Company agree as follows:</p><ol><li>Purchase of Tokens. The Company is selling to you and you are purchasing from the Company %{coin_amount} Tokens at the price of %{coin_rate} %{currency} per Token (“Purchase Price”) totaling %{coin_price}%{currency} (“Aggregate Amount”).</li></ol>"
+    distribution_h: "Distribution, initial rate, and token exchange"
+    distribution_html: "<table class=\"table info-block\"><tr><td><h4>Initial MYTOKEN token rate</h4></td><td><p class=\"table-price”>0.008 - 0.012 BTC</p><p>Depending on the time of purchase.</p><p>Time is set in Pacific Daylight zone.</p></td></tr><tr><td><h4>Presale: Early Bird</h4><p>August 15, 2017 9:00 AM - 9:00 PM</p></td><td><p class=\"table-price\">0.008 BTC</p><p>Min purchase - 10,000 MYTOKEN tokens (80 BTC)</p></td></tr><tr><td><h4>Presale</h4><p>August 15, 2017, 9:00 PM -</p><p>August 20, 2017, 12:00 PM</p></td><td><p class=\"table-price\">0.009 BTC</p><p>Min purchase - 1,000 MYTOKEN tokens (9 BTC)</p> </td></tr><tr><td><h4>ICO: Early Bird</h4><p>August 20, 2017, 12:00 PM - </p><p>August 22, 2017, 12:00 PM</p></td><td><p class=\"table-price\">0.01 BTC</p><p>Min purchase - 1 MYTOKEN token (0.01 BTC)</p></td></tr><tr><td><h4>ICO 1st</h4><p>August 22, 2017, 12:00 PM -</p><p>September 5, 2017, 12:00 PM</p></td><td><p class=\"table-price\">0.011 BTC</p><p>Min purchase - 1 MYTOKEN token (0.011 BTC)</p></td></tr><tr><td><h4>ICO 2nd</h4><p>September 5, 2017, 12:00 PM - </p><p>September 20, 2017, 12:00 PM</p></td><td><p class=\"table-price\">0.012 BTC</p><p>Min purchase - 1 MYTOKEN token (0.012 BTC)</p></td></tr></table>"
+    info_block:
+      description_html: "<p>Thank you for your interest in purchasing the MYTOKEN tokens.</p><p>You can purchase MYTOKEN tokens at the following rates:</p>"
+      description_show_ico_html: "<p>Here you will be able to deposit funds and purchase MYTOKEN Tokens.</p>"
+    step:
+      calc_block:
+        description_html: >
+            <p>You can buy MYTOKEN tokens using BTC, ETH, LTC, DASH, ZEC, or USD.</p>
+            <p>The calculator is provided for your convenience. You can enter a number of MYTOKEN tokens you want to buy and calculate the amount you would need to have in your account wallets.</p>
+            <p>If you want to purchase MYTOKEN tokens with any currency other than BTC, please note that the price of the tokens will be calculated at the time of the actual token purchase and not at the time of the funds deposit.</p>
+        h: Plan your MYTOKEN tokens purchase
+      login:
+        description_html: "Please log in or register to buy MYTOKEN tokens. For your convenience, there is no confirmation letter. If you have any problems, please contact %{mail}"
+        h: Log in or Register.
+      make_deposit:
+        crypt_description_html: >
+            <p>The funds will appear in your account wallets only after your cryptocurrency transaction gets 6 confirmations. You will receive an email about the successful deposit.</p>
+        h: Make a deposit
+        usd_tab_title: USD
+        btc_wallet_missing_html: >
+          <div class="alert alert-dismissible alert-warning">
+            Please enter BTC wallet in <a href="%{profile_url}" class="link">your profile</a>.
+          </div>
+        eth_wallet_missing_html: >
+          <div class="alert alert-dismissible alert-warning">
+            Please enter ETH wallet in <a href="%{profile_url}" class="link">your profile</a>.
+          </div>
+        usd_description_html: >
+            <p>How it works:</p>
+            <ol>
+              <li>Generate the invoice for the sum you want to deposit (minimum allowed amount for wire transfer is $%{min_amount_for_transfer}).</li>
+              <li>Find the invoice sent to your email address, download and pay it.</li>
+              <li>The funds will appear in your account as soon as the payment is confirmed. You will receive an email about the successful deposit.</li>
+            </ol>
+        note_autoconvert_off_html: <p>Please note that deposit of funds is not a purchase of MYTOKEN tokens. You need to complete Step 3 and purchase the required number of tokens with the deposited funds.</p>
+        note_autoconvert_on_html: <p>Please note that if your balance is sufficient for the minimum purchase, the purchase of MYTOKEN tokens with the deposited funds is completed automatically, and you skip Step 3.</p>
+      receipt_address:
+        h: "Check your token receipt address"
+        warning: "Attention: your wallet must support ERC-20."
+      referral_link_html: "<p>This is your MYTOKEN referral link. You can use it to share the project with your friends and other interested parties. If any of them sign up with this link, they will be added to your referral program. Your reward amounts to %{percent}% of all MYTOKEN tokens purchased by your referrals.</p>"
+      buy_form:
+        title: "Buy %{coin_tiker} tokens"
+        buttons:
+          buy_now: "BUY NOW"
+        widgets_html: ""
+    welcome:
+      h: Welcome
+      sign_in_h: "Welcome to your account!"
+    close_ico:
+      title: "The %{coin_name} fundraiser is closed."
+      aside:
+        currency_raised: "%{currency} raised"
+  profile:
+    promocodes:
+      promotokens:
+        description_html: >
+          <p class="text-justify">
+            Send promotokens to address above. As soon as transaction confirmed, <b>%{promotoken_code}</b>
+            promocode will be available in order to use the discount on promotokens.
+          </p>
+    kyc:
+      widgets_html: ''
+  aside:
+    timer_title: "%{ico_stage_name} TIMER"
+    token_balance_title: "My %{coin_name} Tokens"
+    referral_token_balance_title: "My %{coin_name} Referral Tokens"
+    token_price_title: "%{coin_name} Token Price"
+    promo_token_balance_title: "Promo Token balance"
+    loyalty_program_description_html: "loyalty program: %{name}, expires: %{expires_time}"
+  message:
+    coin_payment_notification_subject: "Your token purchase was successful!"
+    coin_payment_notification_html: >
+      <p>
+        Thank you for your payment. You have successfully purchased %{coin_amount} %{coin_tiker} for %{amount} %{currency} in your account at <a href="%{platform_link}">%{platform_link}</a>.
+      </p> <p>
+        <h3 style="margin-bottom: 5px">Purchase details:</h3>
+        <b>Transaction ID</b>: %{transaction_id}<br/>
+        <b>Account</b>: %{email}<br/>
+        <b>Coins</b>: %{coin_amount} %{coin_tiker}<br/>
+        <b>Price</b>: %{price} %{currency}<br/>
+        <b>Amount</b>: %{amount} %{currency}<br/>
+        <b>Date</b>: %{transaction_date}<br/>
+      </p>
+    created_icos_id_account_notification_html: >
+      <p>
+         We just created ICOS ID account for you! http://icosid.com
+      </p>
+    promo_token_transaction_notification_subject: "Your payment by promo tokens was successful!"
+    created_icos_id_account_notification_subject: We just created ICOS ID account for you!
+    promo_token_transaction_notification_html: >
+      <p>
+        Thank you for your payment by promo tokens. You have successfully deposited %{amount} promo tokens to your account at <a href="%{platform_link}">%{platform_link}</a>.
+      </p> <p>
+        <h3 style="margin-bottom: 5px">Payment details:</h3>
+        <b>Transaction ID</b>: %{transaction_id}<br/>
+        <b>Account</b>: %{email}<br/>
+        <b>Payment system</b>: %{payment_system}<br/>
+        <b>Amount</b>: %{amount}<br/>
+        <b>Contract</b>: %{contract}<br/>
+        <b>Currency</b>: %{currency}<br/>
+        <b>Date</b>: %{transaction_date}<br/>
+      </p>
+    invoice_paid_notification_subject: "Your invoice %{invoice_number} was successfully paid!"
+    invoice_paid_notification_html: >
+      <p>
+        Thank you for your payment. You have successfully deposited %{amount} %{currency} to your account at <a href="%{platform_link}">%{platform_link}</a>.
+      </p> <p>
+        <h3 style="margin-bottom: 5px">Payment details:</h3>
+        <b>Invoice Number</b>: %{invoice_number}<br/>
+        <b>Transaction ID</b>: %{transaction_id}<br/>
+        <b>Account</b>: %{email}<br/>
+        <b>Payment system</b>: %{payment_system}<br/>
+        <b>Amount</b>: %{amount} %{currency}<br/>
+        <b>Date</b>: %{transaction_date}<br/>
+      </p>
+    payment_notification_subject: "Your payment was successful!"
+    payment_notification_html: >
+      <p>
+        Thank you for your payment. You have successfully deposited %{amount} %{currency} to your account at <a href="%{platform_link}">%{platform_link}</a>.
+      </p> <p>
+        <h3 style="margin-bottom: 5px">Payment details:</h3>
+        <b>Transaction ID</b>: %{transaction_id}<br/>
+        <b>Account</b>: %{email}<br/>
+        <b>Payment system</b>: %{payment_system}<br/>
+        <b>Amount</b>: %{amount} %{currency}<br/>
+        <b>Date</b>: %{transaction_date}<br/>
+      </p>
+    confirmation_instructions_html: >
+      <p>Welcome %{email}!</p><p>You can confirm your account email through the link below:</p>
+      <p><a href="%{confirmation_url}">Confirm my account</a></p>
+      <p>This is your %{coin_tiker} <a href="%{referral_url}">referral link</a>. You can use it to share the project with your friends and other interested parties. If any of them sign up with this link they will be added to your referral program. Your reward amounts to %{referral_bonus} of all %{coin_tiker} tokens bought by your referrals.</p>
+    confirmation_oauth_email_instructions_html: >
+      <p>Welcome %{email}!</p>
+      <p>You can confirm your account email through the link below:</p>
+      <p><a href="%{confirmation_url}">Confirm my account</a></p>
+    password_change_html: >
+      <p>Hello %{email}!</p>
+      <p>We're contacting you to notify you that your password has been changed.</p>
+    reset_password_instructions_html: >
+      <p>Hello %{email}!</p>
+      <p>Someone has requested a link to change your password. You can do this through the link below.</p>
+      <p><a href="%{reset_password_url}">Change my password</a></p>
+      <p>If you didn't request this, please ignore this email.</p>
+      <p>Your password won't change until you access the link above and create a new one.</p>
+    reset_password_instructions_register_from_admin_html: >
+      <p>ICO %{coin_name} account created.</p>
+      <p>An account has been created for you at <a href="%{root_url}">%{root_url}</a>. Please, set your password and use it along with your E-Mail address to sign into <a href="%{root_url}">%{root_url}</a>.</p>
+      <p><a href="%{edit_password_url}">Set my password</a></p>
+    unlock_instructions_html: >
+      <p>Hello %{email}!</p>
+      <p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+      <p>Click the link below to unlock your account:</p>
+      <p><a href="%{unlock_url}">Unlock my account</a></p>
+    mailer_layout: >
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        </head>
+        <body>
+          %{content}
+        </body>
+      </html>
+  nav:
+    ico_site: "ICO SITE"
+  header:
+    after_logo: ""
+  loyalty_program:
+    not_exist: "The loyalty program does not exist"
+    not_actual: "The loyalty program is no longer valid"
+  payment_address:
+    deposit:
+      can_not_get_address: "Can not get payment address. Please try again"
+    promo_tokens:
+      can_not_get_address: "Can not get promo token address. Please try again"
+  promocode:
+    added: "The promo code was successfully applied"
+    already_used: "You have already used this promo code"
+    not_actual: "The promo code was not applied because it is not the best offer for you"
+    not_added: "The promo code was not applied"
+    not_exist: "The promo code does not exist"
+    not_valid: "The promo code is no longer valid"
+    promotoken:
+      not_enabled: "The ability to work with promo tokens is not activated"
+      not_enough_promo_tokens: "Not enough number of Promo Tokens"
+  purchase:
+    agreement_html: "<div></div>"
+  roles:
+    admin: Admin
+    admin_read_only: Admin (Read only)
+    user: User
+    support: Support
+  registration:
+    agreement_label_html: "I agree with <a target=\"_blank\" href=\"%{link}\">Terms of Services</a>"
+    not_referral_follower_signup_error: "Only referral link followers can sign up"
+  otp:
+    notice:
+      required: Two-Factor Authorization enabled in account, need code.
+      disabled: Two-Factor Authorization has been disabled.
+      enabled: Two-Factor-Authorization has been enabled.
+      backup_code_regenerated: Backup codes have been successfully regenerated.
+      invalid_code: Invalid code, try again.
+      invalid_password: Invalid password, try again.
+  activation:
+    errors:
+      invalid_code: Invalid activation code.
+      not_required: Activation not required.
+    notice:
+      already_activated: Your account is already activated.
+      successfully: Your account has been activated.
+  errors:
+    messages:
+      user_not_activated: "User #%{user_id} could not be activated."
+      user_not_exist: User does not exist.
+      password_invalid: Invalid password, try again.
+      password_already_created: The password has been already created.
+      password_set_request: You must set a password before this action.
+      otp_not_enabled: Two-factor authentication not enabled.
+      otp_invalid_code: Invalid code, try again.
+      otp_already_enabled: Two-factor authentication already enabled.
+      not_exist: not exist
+      not_actual: not actual
+      already_used: already used
+      invoice_creation: Can not generate invoice. Please try again later.
+      user_activated: "User #%{user_id} could not be activated."
+      icos_id_already_verified: User already verified.
+      icos_id_can_not_create_account: Can not create ICOS ID account.
+      icos_id_can_not_get_account: Can not get ICOS ID account.
+      icos_id_can_not_send_verify: Can not send verify KYC to ICOS ID.
+      icos_id_verify_in_progress: Previous KYC verify still in processing.
+      max_file_size: too large file size, maximum allowed %{max_file_size} MB
+      invalid_file_format: invalid file format
+  notice:
+    messages:
+      user_activated: "User #%{user_id} successfully activated."
+      otp_codes_regenerated: Backup codes have been successfully regenerated.
+      otp_enabled: Two-factor authentication has been enabled.
+      otp_disabled: Two-factor authentication has been disabled.
+      password_created: Password successfully created.
+      oauth_completion_registration: To complete the registration, you must enter the missing information.
+      oauth_account_linking: To confirm the binding of your account, you must enter the password from the BB account.

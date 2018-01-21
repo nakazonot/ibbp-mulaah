@@ -1,0 +1,4 @@
+<%= ibbp_layout_meta_tags(@config_parameters) %>
+<% if @config_parameters['site.meta.favicon'].present? %>
+  <link rel="icon" href="<%=@config_parameters['site.meta.favicon']%>">
+<% end %>

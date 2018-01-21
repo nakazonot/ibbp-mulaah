@@ -1,0 +1,15 @@
+<%= semantic_form_for @payment, url: admin_make_deposit_create_path, method: :post, as: :payment, :builder => ActiveAdmin::FormBuilder do |f| %>
+  <%= f.inputs 'New Payment' do %>
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :user_email, input_html: { disabled: true, value: User.find(f.object.user_id).email }, label: 'User' %>
+    <%= f.input :currency, label: 'Currency', as: :select, collection: Parameter.available_currencies.keys %>
+    <%= f.input :amount, label: 'Amount' %>
+    <% if can?(:referral_system, :balance) %>
+      <%= f.input :add_bonus, as: :boolean, label: 'Add bonus' %>
+    <% end %>
+    <%= f.input :description, as: :text, label: 'Description' %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, button_html: { value: 'Make Deposit', 'data-disable-with': 'Make Deposit' } %>
+  <% end %>
+<% end %>

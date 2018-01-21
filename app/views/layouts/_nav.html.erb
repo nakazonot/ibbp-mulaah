@@ -1,0 +1,51 @@
+<div class="nav-top">
+  <div class="wrap">
+    <div class="row">
+      <div id="menu-container">
+        <div class="col-md-8 col-sm-8 col-xs-12">
+          <ul>
+            <li class="<%= active_class(root_path) %>"><a href="/" class="btn">DASHBOARD</a></li>
+            <% if user_signed_in? %>
+                <li class="<%= active_class(distribution_path) %>">
+                  <%= link_to('Distribution', distribution_path, class: 'btn') %>
+                </li>
+            <% end %>
+            <% unless @config_parameters['links.ico_site'].blank? %>
+              <li>
+                <%= link_to(@config_parameters['links.ico_site'], class: 'btn', target: @config_parameters['links.new_window'].to_i == 1 ? '_blank' : '') do %>
+                    <%= t('nav.ico_site') %> <span class="ripple-container"></span>
+                <% end %>
+              </li>
+            <% end %>
+            <% unless @config_parameters['links.white_paper'].blank? %>
+              <li>
+                <%= link_to('WHITE PAPER', @config_parameters['links.white_paper'], class: 'btn', target: @config_parameters['links.new_window'].to_i == 1 ? '_blank' : '') %>
+              </li>
+            <% end %>
+            <% unless @config_parameters['links.token_contract'].blank? %>
+              <li>
+                <%= link_to('TOKEN CONTRACT', @config_parameters['links.token_contract'], class: 'btn', target: @config_parameters['links.new_window'].to_i == 1 ? '_blank' : '') %>
+              </li>
+            <% end %>
+            <% unless @config_parameters['links.faq'].blank? %>
+              <li>
+                <%= link_to('FAQ', @config_parameters['links.faq'], class: 'btn', target: @config_parameters['links.new_window'].to_i == 1 ? '_blank' : '') %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+          <ul>
+            <% if user_signed_in? %>
+              <li class="<%= active_class(profile_edit_path) %>"><%= link_to('Profile', profile_edit_path, class: 'btn') %></li>
+              <li class="<%= active_class(profile_payments_path) %>"><%= link_to('Payments', profile_payments_path, class: 'btn') %></li>
+              <li><%= link_to('Log out', destroy_user_session_path, id: 'btn-logout', class: 'btn', method: :delete) %></li>
+            <% else %>
+              <li><%= link_to('Sign in', new_user_session_path, id: 'btn-signin', class: 'btn') %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

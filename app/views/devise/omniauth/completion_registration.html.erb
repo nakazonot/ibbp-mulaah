@@ -1,0 +1,31 @@
+<div class="card login-card">
+  <div class="card-content text-left">
+    <h4 class="title card-title-md">Completion of registration</h4>
+    <br>
+    <%= form_for(resource, as: resource_name, url: oauth_completion_registration_path, method: :post) do |f| %>
+        <div class="alert card-alert">
+          <p><%= t('notice.messages.oauth_completion_registration') %></p>
+        </div>
+        <%= render partial: 'devise/validation_errors', locals: { resource: resource } %>
+        <% if missing_fields.include?(:email) %>
+            <div class="form-group label-floating">
+              <%= f.label :email, class: 'control-label required' %>
+              <%= f.text_field :email, class: 'form-control', required: true %>
+            </div>
+        <% end %>
+        <% if missing_fields.include?(:name)  %>
+            <div class="form-group label-floating">
+              <%= f.label :name, class: 'control-label required' %>
+              <%= f.text_field :name, class: 'form-control', required: true %>
+            </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.submit 'Confirm linking', class: 'btn btn-raised btn-primary wide btn-card-login-submit' %>
+        </div>
+        <div class="down-box">
+          <%= link_to('Sign In', new_user_session_path) %>
+        </div>
+    <% end %>
+  </div>
+</div>

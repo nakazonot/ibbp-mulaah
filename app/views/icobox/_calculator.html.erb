@@ -1,0 +1,44 @@
+<!--calculator-->
+<div class="calculator">
+  <div class="left">
+    <div class="form-group">
+      <input id="coin-amount" type="text" class="form-control" value="<%= @min_coin_for_payment == 0 ? 1 : coins_number_format(@min_coin_for_payment) %>">
+      <label><%= @config_parameters['coin.name'] %></label>
+    </div>
+    <a href="javascript:void(0)" class="direction" data-direction="right"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+  </div>
+  <div class="right">
+    <div class="form-group">
+      <input type="text" id="coin-price" class="form-control" value="" disabled>
+
+      <div class="list-currency notranslate">
+        <a data-code="<%= @config_parameters['coin.rate_currency'] %>" id="calculator-currency-btn" href="javascript:void(0)" class="btn btn-raised btn-select current-currency list-currency-icon">
+          <span>
+            <%= currency_icon(@config_parameters['coin.rate_currency'], 'currency-select-bg') %>
+            <%= @available_currencies[@config_parameters['coin.rate_currency']]['name'] %>
+          </span>
+        </a>
+        <div class="btn-group-vertical">
+          <% @available_currencies.each do |currency_code, currency| %>
+            <a data-code="<%= currency_code %>" href="javascript:void(0)" class="btn btn-raised calculator-currency list-currency-icon">
+              <span>
+                <%= currency_icon(currency_code, 'currency-select-bg') %>
+                <%= currency['name'] %>
+              </span>
+            </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="bonus">
+    <span><span id="coin-bonus-percent"></span> BONUS:</span>
+    <div id="coin-bonus">0</div>
+  </div>
+  <div class="total">
+    <span>TOTAL:</span>
+    <div id="coin-total">0</div>
+  </div>
+</div>
+<!--calculator-->

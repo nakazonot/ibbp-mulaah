@@ -1,0 +1,122 @@
+<form class="buy-tokens-form" role="form">
+  <% if cannot? :buy_tokens, :stage %>
+    <div class="alert alert-dismissible alert-warning">At this ICO stage, the purchase of tokens is prohibited.</div>
+  <% elsif @user_balances.blank? %>
+    <div class="alert alert-dismissible alert-warning">Please make a deposit first to buy tokens.</div>
+  <% end %>
+
+  <% disable_form = @user_balances.blank? || cannot?(:buy_tokens, :stage) ? 'disabled=disabled' : '' %>
+
+  <div id="tokens-form-wrap" class="row">
+    <div class="col-xs-12 form-token-label"><label>PAY WITH</label></div>
+    <div class="col-md-5 col-xs-12">
+      <div class="list-currency notranslate">
+        <% if @user_currencies_for_purchase.present? %>
+          <a data-code="<%= @user_currencies_for_purchase.first %>" href="javascript:void(0)" class="btn btn-raised btn-select current-currency btn-block list-currency-icon">
+            <span>
+              <%= currency_icon(@user_currencies_for_purchase.first, 'currency-select-bg') %>
+              <%= @available_currencies[@user_currencies_for_purchase.first]['name'] %>
+            </span>
+          </a>
+          <div class="btn-group-vertical">
+            <% @user_currencies_for_purchase.each do |currency_code| %>
+              <a data-code="<%= currency_code %>" href="javascript:void(0)" class="btn btn-raised calculator-currency btn-block list-currency-icon">
+                <span>
+                  <%= currency_icon(currency_code, 'currency-select-bg') %>
+                  <%= @available_currencies[currency_code]['name'] %>
+                </span>
+              </a>
+            <% end %>
+          </div>
+        <% else %>
+          <a href="javascript:void(0)" class="btn btn-raised btn-select current-currency btn-block disabled-list">No coins yet</a>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-7 col-xs-12 spend-all-checkbox">
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input id="form-token-spend-all-checkbox" autocomplete="off" type="checkbox" <%= disable_form %>> Spend all funds in your account to buy tokens
+          </label>
+        </div>
+      </div>
+    </div>
+    <div id="form-token-label-amount" class="col-md-5 col-xs-12 form-token-label" ><label>AMOUNT</label></div>
+    <div id="form-token-label-bonus" class="col-md-3 col-xs-12 form-token-label">
+      <label>BONUS</label>
+    </div>
+    <div id="form-token-label-total"  class="col-md-4 col-xs-12 form-token-label"><label>TOTAL PRICE</label></div>
+
+    <div id="form-token-input-amount" class="col-md-5 col-xs-12">
+      <div class="input-group input-amount">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default btn-number" id="btn-minus" data-type="minus" data-field="quant[1]" <%= disable_form %>>
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+        </span>
+        <input type="text" name="quant[1]"class="input-number coin-amount" <%= disable_form %>>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default btn-number" id="btn-plus" data-type="plus" data-field="quant[1]" <%= disable_form %>>
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </span>
+      </div>
+    </div>
+
+    <div id="bonus-amount-box" class="col-md-3 col-xs-12">
+      <p><span class="coins-bonus">0</span></p>
+    </div>
+    <div id="total-price-box" class="col-md-4 col-xs-12 notranslate">
+      <div class="buy-form-user-deposits"></div>
+      <div class="price-box-separator"></div>
+      <p><span class="coin-price"></span> <span class="coin-price-currency"></span></p>
+    </div>
+
+    <div class="col-md-12 row-delimiter"></div>
+
+    <div id="add-promotional-code-label" class="col-xs-12 <%= @current_promocode ? 'col-md-5' : 'col-md-12'%>">
+      <label>ADD PROMO CODE</label>
+    </div>
+    <div id="active-promotional-code-label" class="col-xs-12 col-md-7" style="display: <%= @current_promocode ? 'block' : 'none' %>">
+      <label>ACTIVE PROMO CODE</label>
+    </div>
+    <div id="form-token-promocode-box" class="col-xs-12 <%= @current_promocode ? 'col-md-5' : 'col-md-12'%>">
+      <div class="promo-code-form">
+        <div class="box" style="height: 40px;">
+          <input type="text" id="input-form-token-promocode">
+        </div>
+        <button type="button" id="btn-token-promocode-add" class="btn">add</button>
+      </div>
+    </div>
+    <div id="form-token-promocode-current-box" class="col-xs-12 col-md-7 notranslate" style="display: <%= @current_promocode ? 'block' : 'none' %>">
+      <p>
+        <span class="current-promocode"></span>
+      </p>
+    </div>
+
+    <div class="purchase-agreement col-xs-12">
+    <% get_purchase_agreements.each do |purchase_agreement| %>
+      <div class="checkbox">
+        <label>
+          <input autocomplete="off" type="checkbox" <%= disable_form %>> <%= purchase_agreement %>
+        </label>
+        </div>
+    <% end %>
+    </div>
+  </div>
+
+  <% if t('main.step.buy_form.widgets_html').present? %>
+    <%= t('main.step.buy_form.widgets_html') %>
+  <% end %>
+
+  <div class="divider"></div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" id="btn-buy-tokens-now" class="btn btn-primary btn-raised btn-block buy-now" <%= disable_form %>>
+        <%= t('main.step.buy_form.buttons.buy_now') %>
+      </button>
+    </div>
+  </div>
+</form>
+

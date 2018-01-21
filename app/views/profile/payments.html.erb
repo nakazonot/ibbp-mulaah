@@ -1,0 +1,16 @@
+<div class="panel panel-default" id="payment-history">
+  <div class="panel-body">
+    <h2>Payments</h2>
+    <div class="row">
+      <div class="col-md-3 col-md-offset-9 col-xs-12">
+        <%= smart_listing_controls_for(:payments) do %>
+          <div class="filter input-append">
+            <%= select_tag :filter_type, options_for_select(payment_types_collection(@payment_types)), { include_blank: 'Select type of payment', class: 'form-control', autocomplete: 'off' } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%= smart_listing_render(:payments) %>
+  </div>
+</div>

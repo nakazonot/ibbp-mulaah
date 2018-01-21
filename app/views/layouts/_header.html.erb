@@ -1,0 +1,42 @@
+<header>
+  <div class="wrap">
+    <div class="row">
+      <div class="col-md-8 col-sm-8 col-xs-9">
+        <a href="/" class="logo">
+          <img src="<%= @config_parameters['links.logo'] %>" height="28px">
+          <%= t('header.after_logo') %>
+        </a>
+
+        <% unless @config_parameters['links.slack'].blank? %>
+          <%= link_to(@config_parameters['links.slack'], class: 'social hidden-xs', target: @config_parameters['links.new_window'].to_i == 1 ? '_blank' : '') do %>
+              <i class="fa fa-slack"></i> Slack
+          <% end %>
+        <% end %>
+        <% unless @config_parameters['links.we_chat'].blank? %>
+          <%= link_to(@config_parameters['links.we_chat'], class: 'social hidden-xs', target: @config_parameters['links.new_window'].to_i == 1 ? '_blank' : '') do %>
+              <i class="fa fa-weixin"></i> Wechat
+          <% end %>
+        <% end %>
+        <% unless @config_parameters['links.telegram'].blank? %>
+          <%= link_to(@config_parameters['links.telegram'], class: 'social hidden-xs', target: @config_parameters['links.new_window'].to_i == 1 ? '_blank' : '') do %>
+              <i class="fa fa-paper-plane"></i> Telegram
+          <% end %>
+        <% end %>
+      </div>
+      <div class="hidden-md hidden-lg hidden-sm col-xs-3">
+        <button class="hamburger hamburger--collapse pull-right" type="button">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="col-md-4 col-sm-4 hidden-xs text-right user-info">
+          <span><%= current_user.email %></span>
+          <span class="user-id">(Id #<%= current_user.id %>)</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</header>

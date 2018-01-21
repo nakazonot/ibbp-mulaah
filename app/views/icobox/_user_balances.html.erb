@@ -1,0 +1,18 @@
+<% if user_signed_in? %>
+  <div class="row balance-btn">
+    <div id="deposit-button" class="col-xs-6 col-sm-12 col-md-6">
+      <a href="#make-deposit" class="btn btn-raised btn-danger btn-lg btn-block user-balance-btn">DEPOSIT</a>
+    </div>
+    <div id="buy-tokens-button" class="col-xs-6 col-sm-12 col-md-6">
+      <a href="#buy-form" class="btn btn-raised btn-danger btn-lg btn-block user-balance-btn">BUY</a>
+    </div>
+  </div>
+
+  <% if @user_balances.present? %>
+    <div class="divider balance-separator"></div>
+    <h4>Deposits</h4>
+    <% @user_balances.each do |currency, balance| %>
+      <p class="notranslate"><%= currency %>: <%= currency_number_format(balance, currency) %></p>
+    <% end %>
+  <% end %>
+<% end %>

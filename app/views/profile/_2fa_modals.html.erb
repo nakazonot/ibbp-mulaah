@@ -1,0 +1,170 @@
+<div id="modal-enable2fa-stage0" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title">Enable two-factor authentication</h4>
+      </div>
+      <div class="modal-body">
+        <p>To enable 2FA, you need to create a password.</p>
+        <ul class="auth-validation-errors" id="modal-enable2fa-stage0-errors">
+        </ul>
+        <form class="disable-submit-event">
+          <fieldset>
+            <div class="form-group is-empty row">
+                <label class="col-md-3 control-label" for="input-enable2fa-0-password" style="text-align: right;">Password</label>
+                <div class="col-md-8">
+                  <input type="password" id ="input-enable2fa-0-password" name="input-enable2fa-0-password" class="form-control">
+                </div>
+            </div>
+            <div class="form-group is-empty row">
+              <label class="col-md-3 control-label" for="password_confirmation_Confirm password" style="text-align: right;">Password confirmation</label>
+              <div class="col-md-8">
+                <input type="password" id="input-enable2fa-0-password-confirmation" name="input-enable2fa-0-password-confirmation" class="form-control">
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <div class="divider-modal-bottom"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="btn-enable2fa-stage0-confirm" type="button" class="btn btn-default">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-enable2fa-stage1" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title">Get codes using Google Authenticator app</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="ul-padding-left-small">
+          <li>Download app from <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">AppStore</a> (iOS) or <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Google Play</a> (Android).</li>
+          <li>Open application and select <b>Configure account</b>.</li>
+          <li>Click <b>Scan Barcode</b>.</li>
+        </ul>
+        <div id="enable2fa-stage1-qr-code" class="box quare-code modal-qr"></div>
+        <p class="text-justify">Can't scan the code? Add the entry manually, provide the following details to the application on your phone.</p>
+        <p class="without-bottom-margin">— <b>Account</b>: <span id="enable2fa-stage1-account-name"></span></p>
+        <p class="without-bottom-margin">— <b>Key</b>: <span id="enable2fa-stage1-key"></span></p>
+        <p class="without-bottom-margin">— <b>Time based</b>: <span>yes</span></p>
+        <br>
+        <div class="divider-modal-bottom"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="btn-enable2fa-stage1-next" type="button" class="btn btn-default">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-enable2fa-stage2" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title">Configure Authenticator app</h4>
+      </div>
+      <div class="modal-body">
+        <p>Enter the 6-digit code from the application.</p>
+        <br>
+        <form class="disable-submit-event">
+          <fieldset>
+            <div class="form-group label-floating is-empty half-width">
+              <label class="control-label required" for="input-enable2fa-stage2-code">Enter code</label>
+              <input type="text" id="input-enable2fa-stage2-code" required="required" autocomplete="off" class="form-control">
+            </div>
+          </fieldset>
+        </form>
+        <div class="divider-modal-bottom"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-enable2fa-stage2-back" type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+        <button id="btn-enable2fa-stage2-confirm" type="button" class="btn btn-default">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-disable2fa" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title">Disable 2-Step Verification</h4>
+      </div>
+      <div class="modal-body">
+        <p>Enter your password for disable 2-Step Verification</p>
+        <br>
+        <form class="disable-submit-event">
+          <fieldset>
+            <div class="form-group label-floating is-empty half-width">
+              <label class="control-label required" for="input-disable2fa-password">Enter password</label>
+              <input type="password" id="input-disable2fa-password" required="required" autocomplete="off" class="form-control">
+            </div>
+          </fieldset>
+        </form>
+        <div class="divider-modal-bottom"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="btn-disable2fa-confirm" type="button" class="btn btn-default">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-backup-codes" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title">2-Step Verification backup codes</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-justify">Should you ever lose your phone, each of these recovery codes can be used one time each to regain access to your account.</p>
+        <p class="text-justify">Keep these codes in a <b>safe place</b>:</p>
+        <ul id="step3-backup-codes"></ul>
+        <div class="divider-modal-bottom"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-regenerate-backup-codes" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title">Regenerate backup codes</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger without-bottom-margin"><b>IMPORTANT!</b> Previous codes become invalid.</p>
+        <p>Enter your password for regenerate your backup codes</p>
+        <br>
+        <form class="disable-submit-event">
+          <fieldset>
+            <div class="form-group label-floating is-empty half-width">
+              <label class="control-label required" for="input-regenerate-backup-codes-password">Enter password</label>
+              <input type="password" id="input-regenerate-backup-codes-password" autocomplete="off" required="required" class="form-control">
+            </div>
+          </fieldset>
+        </form>
+        <div class="divider-modal-bottom"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="btn-regenerate-backup-codes-next" type="button" class="btn btn-default">Next</button>
+      </div>
+    </div>
+  </div>
+</div>

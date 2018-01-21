@@ -1,0 +1,10 @@
+<% if can?(:show_ico_info, :user) %>
+  <%= t('main.info_block.description_show_ico_html') %>
+<% else %>
+  <%= t('main.info_block.description_html') %>
+<% end %>
+
+<% if !can?(:show_ico_info, :user) %>
+  <br>
+  <%= render 'distribution' %>
+<% end %>

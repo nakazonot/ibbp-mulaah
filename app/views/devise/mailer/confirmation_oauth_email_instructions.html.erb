@@ -1,0 +1,5 @@
+<%= t('message.confirmation_oauth_email_instructions_html',
+      email: @email,
+      confirmation_url: oauth_confirmation_email_url(confirmation_oauth_email_token: @token),
+    )
+%>

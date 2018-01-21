@@ -1,0 +1,12 @@
+<%=
+  t('main.contract_template_html',
+    coin_amount:         coins_number_format(@contract['info']['coin_amount']),
+    coin_rate:           @contract['info']['coin_rate'],
+    coin_price:          currency_number_format(@contract['info']['coin_price'], @contract['info']['currency']),
+    currency:            @contract['info']['currency'],
+    time_now:            date_frontend_long(Time.current.in_time_zone),
+    contract_created_at: date_frontend_long(@contract.created_at),
+    email:               @contract.user.email,
+    name:                @contract.user.name.present? ? @contract.user.name : '_____________________'
+  )
+%>

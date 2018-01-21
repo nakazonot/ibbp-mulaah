@@ -1,0 +1,12 @@
+<%= t('message.coin_payment_notification_html',
+      platform_link: platform_link,
+      email: @payment.user.email,
+      currency: @payment.currency_buyer,
+      price: original_number_format(@payment.iso_coin_rate),
+      coin_amount: original_number_format(@payment.iso_coin_amount),
+      coin_tiker: @config_parameters['coin.tiker'],
+      amount: original_number_format(@payment.amount_buyer),
+      transaction_id: @payment.id,
+      transaction_date: date_payment_history(@payment.created_at),
+    )
+%>

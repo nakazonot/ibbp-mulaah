@@ -1,0 +1,52 @@
+<% unless smart_listing.empty? %>
+  <table class="table table-striped">
+    <thead>
+      <th><%= smart_listing.sortable 'Date', :created_at %></th>
+      <th><%= smart_listing.sortable 'Type', :payment_type %></th>
+      <th><%= smart_listing.sortable 'Amount', :amount_buyer %></th>
+      <th><%= smart_listing.sortable 'Currency', :currency_buyer %></th>
+      <th><%= smart_listing.sortable "#{@config_parameters['coin.rate_currency']} Amount", :ico_currency_amount %></th>
+      <th><%= smart_listing.sortable 'Tokens', :iso_coin_amount %></th>
+      <th>Description</th>
+      <th>Actions</th>
+
+    </thead>
+    <tbody>
+      <% smart_listing.collection.each do |payment| %>
+        <% payment = PaymentHistoryFormatter.new(payment).view_data %>
+        <tr>
+          <td data-title="Date"><%= payment[:date] %></td>
+          <td data-title="Type"><%= payment[:payment_type] %> 
+            <% if payment[:balance_pending].present? %>
+              <span class="glyphicon glyphicon-time text-danger" data-toggle="tooltip" data-placement="top" title="Payment is pending"></span>
+            <% end %>
+          </td>
+          <td data-title="Amount"><%= payment[:amount] %></td>
+          <td data-title="Currency"><%= payment[:currency] %></td>
+          <td data-title="<%= @config_parameters['coin.rate_currency'] %> Amount"><%= payment[:ico_currency_amount] %></td>
+          <td data-title="Tokens"><%= payment[:tokens] %></td>
+          <td data-title="Description"><%= payment[:description] %></td>
+          <td data-title="Actions">
+            <% if payment[:contract_path].present? %>
+              <%= link_to(payment[:contract_path], title: 'Donwload Contract') do %>
+                <i class="fa fa-handshake-o" aria-hidden="true"></i>
+              <% end %>
+            <% end %>
+            <% if payment[:invoice_url].present? %>
+              <%= link_to(payment[:invoice_url], title: 'Donwload Invoice') do %>
+                <i class="fa fa-money" aria-hidden="true"></i>
+              <% end %>
+            <% end %>
+            <% if payment[:invoice_url].blank? && payment[:contract_path].blank? %>
+                —
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= smart_listing.paginate %>
+  <%= smart_listing.pagination_per_page_links %>
+<% else %>
+  <p class="warning">No records!</p>
+<% end %>

@@ -1,0 +1,11 @@
+<%= t('message.invoice_paid_notification_html',
+      platform_link: platform_link,
+      email: @payment.user.email,
+      currency: @payment.currency_buyer,
+      amount: original_number_format(@payment.amount_buyer),
+      transaction_id: @payment.id,
+      transaction_date: date_payment_history(@payment.created_at),
+      payment_system: "Invoiced",
+      invoice_number: @invoice.number
+    )
+%>

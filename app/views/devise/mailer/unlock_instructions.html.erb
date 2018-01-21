@@ -1,0 +1,11 @@
+<%
+  unlock_uri = @unlock_uri.present? ?
+                   add_param_to_uri(@unlock_uri, :unlock_token, @token) :
+                   unlock_url(@resource, unlock_token: @token)
+%>
+
+<%= t('message.unlock_instructions_html',
+      email: @resource.email,
+      unlock_url: unlock_uri
+    )
+%>

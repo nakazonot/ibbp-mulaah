@@ -1,0 +1,63 @@
+<ul class="nav nav-tabs notranslate" style="margin-bottom: 15px;">
+  <% @available_currencies.each do |currency_code, currency| %>
+    <% next if currency_code == "USD" && ENV['INVOICED_API_KEY'].blank? %>
+    <% if currency_code == "USD" %>
+      <li class="make-deposit-tab-<%= currency_code %>"><a href="#<%= currency_code %>" data-toggle="tab"><%= t('main.step.make_deposit.usd_tab_title') %></a></li>
+    <% else %>
+      <li class="make-deposit-tab-<%= currency_code %>"><a href="#<%= currency_code %>" data-toggle="tab"><%= currency['name'] %></a></li>
+    <% end %>
+  <% end %>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+  <% @available_currencies.each do |currency_code, currency| %>
+    <% if currency_code == "USD" && ENV['INVOICED_API_KEY'].present? %>
+      <div class="tab-pane fade in" id="USD">
+        <a href="javascript:void(0)" class="btn btn-raised generate-invoices" data-code="USD">Generate Invoice</a>
+        <% if @min_payment_amount_by_currency['USD'] > 0 %>
+          <div class="alert alert-dismissible alert-warning">Please make sure your deposit equals or exceeds the minimum purchase amount (at the current exchange rate it is <span class="min-amount"><%= "#{@min_payment_amount_by_currency['USD']} USD" %></span>)</div>
+        <% end %>
+        <%= t('main.step.make_deposit.usd_description_html',
+              min_amount_for_transfer: currency_number_format(@config_parameters['invoiced.min_amount_for_transfer'], ExchangeRate::DEFAULT_CURRENCY)
+            ) %>
+      </div>
+    <% else %>
+      <div class="tab-pane fade in" id="<%= currency_code %>">
+        <a href="javascript:void(0)" class="btn btn-raised get-address <%= @user_addresses[currency_code].present? ? 'hide' : '' %>" data-code="<%= currency_code %>">Get Address for Payment</a>
+        <div>
+          <div class="<%= @user_addresses[currency_code].present? ? '' : 'hide' %> payment-block">
+            <div class="row">
+              <div class="col-md-5 col-xs-12 col-sm-12 text-center left">
+                <p class="title">Deposit funds by scanning below</p>
+                    <div class="box quare-code" data-currency_code="<%= @user_addresses[currency_code].present? ? @user_addresses[currency_code][:address] : '' %>">
+                    </div>
+              </div>
+              <div class="col-md-7 col-xs-12 col-sm-12 text-center right">
+                <p class="title">Or Direct Deposit to</p>
+                <div class="box" style="word-break: break-all;">
+                  <%= currency_icon(currency_code, 'currency-tab-bg') %>
+                  <div class="vertical-align-in-block notranslate">
+                  <p class="payment-address"><%= @user_addresses[currency_code].present? ? @user_addresses[currency_code][:address] : '' %></p>
+                    <p class="pubkey"><%= (@user_addresses[currency_code].present? && @user_addresses[currency_code] == 'NXT') ? @user_addresses[currency_code][:pubkey] : '' %></p>
+                    <p class="dest-tag"><%= @user_addresses[currency_code].present? ? @user_addresses[currency_code][:dest_tag] : '' %></p>
+                  </div>
+                </div>
+                <br>
+              </div>
+            </div>
+            <br>
+          </div>
+          <% if @min_payment_amount_by_currency[currency_code] > 0 %>
+            <div class="alert alert-dismissible alert-warning">Please make sure your deposit equals or exceeds the minimum purchase amount (at the current exchange rate it is <span class="min-amount notranslate"><%= "#{@min_payment_amount_by_currency[currency_code]} #{currency_code}" %></span>)</div>
+          <% end %>
+          <%= t('main.step.make_deposit.crypt_description_html') %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @config_parameters['system.auto_convert_balance_to_tokens'].to_b %>
+      <%= t('main.step.make_deposit.note_autoconvert_on_html') %>
+  <% else %>
+      <%= t('main.step.make_deposit.note_autoconvert_off_html') %>
+  <% end %>
+</div>

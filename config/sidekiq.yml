@@ -1,0 +1,8 @@
+:concurrency: 30
+:queues:
+  - [ibp_mailer_queue, 1]
+  - [ibp_payment_address_queue, 2]
+  - [ibp_google_analytics_queue, 3]
+  - [ibb_cpa_postbacks, 4]
+  - [ibp_rollbar_queue, 5]
+  - [default, 7]

@@ -1,0 +1,22 @@
+<div class="card login-card">
+  <div class="card-content text-left">
+    <h4 class="title card-title-md">Confirm account linking</h4>
+    <br>
+    <%= form_for(resource, as: resource_name, url: oauth_confirm_account_linking_path, method: :post) do |f| %>
+        <div class="alert card-alert">
+          <p><%= t('notice.messages.oauth_account_linking') %></p>
+        </div>
+        <%= render partial: 'devise/validation_errors', locals: { resource: resource } %>
+        <div class="form-group label-floating">
+          <%= f.label :password, class: 'control-label required' %>
+          <%= f.password_field :password, class: 'form-control', required: true, autofocus: true, autocomplete: 'off' %>
+        </div>
+        <div class="form-group">
+          <%= f.submit 'Confirm linking', class: 'btn btn-raised btn-primary wide btn-card-login-submit' %>
+        </div>
+        <div class="down-box">
+          <%= link_to('Sign In', new_user_session_path) %>
+        </div>
+    <% end %>
+  </div>
+</div>

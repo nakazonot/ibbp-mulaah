@@ -1,0 +1,11 @@
+<%= semantic_form_for @payment, url: admin_add_tokens_create_path, as: :payment, builder: ActiveAdmin::FormBuilder do |f| %>
+  <%= f.inputs 'Add tokens' do %>
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :user_email, input_html: { disabled: true, value: User.find(f.object.user_id).email }, label: 'User' %>
+    <%= f.input :coin_amount, label: 'Tokens amount to add' %>
+    <%= f.input :description, as: :text, label: 'Description' %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, button_html: { value: 'Add Tokens', 'data-disable-with': 'Add Tokens' } %>
+  <% end %>
+<% end %>

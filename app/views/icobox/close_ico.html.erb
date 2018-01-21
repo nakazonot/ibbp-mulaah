@@ -1,0 +1,44 @@
+<% ibbp_meta_tags %>
+<div class="row close-page">
+  <div class="col-lg-8 col-sm-8 col-xs-12 shift-top">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h2><%= t('main.close_ico.title', coin_name: @config_parameters['coin.name']) %></h2>
+        <%= render 'info_block' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-sm-4 col-xs-12 ">
+    <div class="panel panel-default aside">
+      <div class="panel-body">
+        <% if user_signed_in? %>
+          <div id="sidebar-coins-info">
+            <h4><%= t('aside.token_balance_title', coin_name: @config_parameters['coin.name'], coin_tiker: @config_parameters['coin.tiker']) %></h4>
+            <p><%= @user_totals[:coin_count] %></p>
+            <div class="divider"></div>
+
+            <h4><%= t('aside.referral_token_balance_title', coin_name: @config_parameters['coin.name'], coin_tiker: @config_parameters['coin.tiker']) %></h4>
+            <p><%= @user_totals[:referral_coin_count] %></p>
+          </div>
+          <div class="divider"></div>
+        <% end %>
+
+
+        <div id="sidebar-raised">
+          <h4> <%= t('main.close_ico.aside.currency_raised', currency: @config_parameters['coin.rate_currency']) %></h4>
+          <p> <%=currency_number_format(@total_ico_currency_amount, @config_parameters['coin.rate_currency']) %> </p>
+        </div>
+
+        <% if can?(:show_timer, :user) %>
+          <div id="sidebar-countdown">
+            <div class="divider"></div>
+            <h4><%= t('aside.timer_title', ico_stage_name: @config_parameters['ico.stage_name']) %></h4>
+            <div id="flipcountdown-box" data-date-end="<%= date_counter_format(IcoStage.order(:date_start).first.date_start) %>"></div>
+            <%= render 'flipcountdown_footer' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

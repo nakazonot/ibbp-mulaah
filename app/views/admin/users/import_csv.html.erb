@@ -1,0 +1,58 @@
+<%=
+  validation_errors = @validation_errors 
+  Arbre::Context.new({}, self) do
+    form_for :import_csv, url: import_csv_form_admin_users_path, html: {class: 'import_csv', multipart: true} do |f|
+      panel 'Import Users' do
+        h5 do
+          'Import file example'
+        end
+        ol do
+          li do
+            'email,name'
+          end
+          li do
+            'testuser1@example.com,Username1'
+          end
+          li do
+            'testuser2@example.com,Username2'
+          end
+          li do
+            'testuser3@example.com,Username3'
+          end
+          br
+          li do
+            b do
+              "Import is limited by #{Services::Users::ImportCsv::USERS_UPLOAD_LIMIT} records per file."
+            end
+          end
+          br
+          br
+        end
+        ol do
+          li class: 'file input reqired' do
+            label 'Select file', class: 'label required' do
+              abbr '*', title: "required"
+            end
+            br
+            f.file_field :file
+          end
+        end
+      end
+      f.submit 'Import', style: 'width: 200px; height: 40px;'
+      br
+      br
+
+      if validation_errors.present?
+        result = []
+        result << '<b>Import was successful, but following users were not imported due to validation errors:</b>'
+        validation_errors.each do |key, value|
+          result << "<br/>"
+          result << "#{key}: #{value.join(' ')}"
+        end
+        div style: "color: red;" do
+          result.join.html_safe  
+        end
+      end
+    end
+  end
+%>

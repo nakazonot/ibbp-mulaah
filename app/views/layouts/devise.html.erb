@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= render 'layouts/meta_tags' %>
+  <%= render 'layouts/google_tag_manager', tag_place: :head %>
+  <%= render 'layouts/google_analytics' %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <style type="text/css"><%= t('custom_css') %></style>
+</head>
+<body id="<%=@body_id%>" class="auth">
+  <%= render 'layouts/google_tag_manager', tag_place: :body %>
+  <div class="outer-wrap">
+    <div class="wrap">
+      <%= yield %>
+    </div>
+  </div>
+
+  <%= render 'layouts/custom_js'%>
+  <script>
+    $(function () {
+      $.material.init();
+
+      <% flash.each do |type, value| %>
+      <%
+          type = 'error' if 'alert' == type
+          type = 'success' if 'notice' == type
+       %>
+      toastr['<%= type %>']('<%= value %>');
+      <% end %>
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<% ibbp_meta_tags %>
+<% step = 1 %>
+
+<%= render 'send_transactions_to_gtm' %>
+
+<div class="row main-page">
+  <div id="main-container" class="col-lg-8 col-sm-8 col-xs-12 shift-top">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h2><%= user_signed_in? ? t('main.welcome.sign_in_h') : t('main.welcome.h') %></h2>
+        <%= render 'info_block' %>
+      </div>
+    </div>
+    <% unless user_signed_in? %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="step">Step <%= step %></div>
+          <% step += 1 %>
+          <h2><%= t('main.step.login.h') %></h2>
+          <%= t('main.step.login.description_html', mail: mail_to(@config_parameters['links.support_email'])) %>
+        </div>
+      </div>
+      <% if can?(:do_sign_up, cookies) %>
+        <div class="panel panel-default">
+          <%= link_to new_user_registration_path do %>
+            <%= button_tag 'sign up', id: 'btn-danger-panel', class: 'btn btn-raised btn-danger' %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if user_signed_in? && can?(:referral_system_enabled, :ico) %>
+      <div id="panel-referral-link" class="panel panel-default">
+        <div class="panel-body">
+          <div class="step">Your referral link</div>
+          <form class="refer-link">
+            <div class="box notranslate">
+              <p id="refer-link-box"><%=referral_link(current_user)%></p>
+            </div>
+            <button type="button"  data-clipboard-target="#refer-link-box" id="refer-copy-link" class="btn">Copy link</button>
+          </form>
+          <%= t('main.step.referral_link_html', percent: @config_parameters['user.referral_bonus_percent'].first) %>
+          <% if @config_parameters['referral.social_share_buttons'].present? %>
+            <%= social_share_button_tag(@config_parameters['site.og.title'], url: referral_link(current_user), allow_sites: @config_parameters['referral.social_share_buttons']) %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <div id="panel-countdown" class="panel panel-default">
+      <div class="panel-body">
+        <div class="step">
+          <%= t('aside.timer_title', ico_stage_name: @config_parameters['ico.stage_name']) %>
+        </div>
+        <div id="panel-flipcountdown-box" data-date-end="<%= date_counter_format(@config_parameters['date_end']) %>"></div>
+        <%= render 'flipcountdown_footer' %>
+      </div>
+    </div>
+
+    <% if can?(:show_ico_info, :user) %>
+      <div class="panel panel-default" id="calculator">
+        <div class="panel-body">
+          <div class="step">Step <%= step %></div>
+          <% step += 1 %>
+          <h2><%= t('main.step.calc_block.h') %></h2>
+          <%= t('main.step.calc_block.description_html') %>
+          <br>
+          <%= render 'calculator' %>
+        </div>
+      </div>
+
+      <% unless user_signed_in? %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+                <%= link_to('Buy Token', new_user_registration_path, class: 'btn btn-primary btn-raised btn-main btn-lg btn-block') %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <div id="panel-make-deposit" class="panel panel-default">
+          <div class="panel-body">
+            <div class="step" id="make-deposit">Step <%= step %></div>
+            <% step += 1 %>
+            <h2><%= t('main.step.make_deposit.h') %></h2>
+            <% if can?(:input, :eth_wallet) && current_user.eth_wallet.blank? %>
+              <%= t('main.step.make_deposit.eth_wallet_missing_html', profile_url: profile_edit_path) %>
+            <% end %>
+            <% if can?(:input, :btc_wallet) && current_user.btc_wallet.blank? %>
+            <%= t('main.step.make_deposit.btc_wallet_missing_html', profile_url: profile_edit_path) %>
+            <% end %>
+            <% if can?(:make_deposits, :stage) %>
+              <%= render 'tab_content' %>
+            <% else %>
+              <div class="alert alert-dismissible alert-warning">At this ICO stage, the make of deposits is prohibited.</div>
+            <% end %>
+            <br><br>
+          </div>
+        </div>
+
+        <div class="panel panel-default" id="buy-coins-form">
+          <div class="panel-body">
+            <div id="buy-form" class="step">Step <%= step %></div>
+            <% step += 1 %>
+            <h2><%= t('main.step.buy_form.title', coin_tiker: @config_parameters['coin.tiker']) %></h2>
+            <%= render 'buy_tokens_form' %>
+          </div>
+        </div>
+      <% end %>
+
+    <% end %>
+  </div>
+  <%= render 'aside' %>
+</div>
+
+<%= render 'invoice_modal' if user_signed_in?%>
+<%= render 'contract_modal' %>

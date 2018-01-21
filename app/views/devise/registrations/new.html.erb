@@ -1,0 +1,40 @@
+<div class="card login-card">
+  <div class="card-content text-left">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <h4 class="title">Sign Up</h4>
+    <br>
+    <%= render 'validation_errors' %>
+    <% if can?(:require_user_name_input_on_sign_up, :user) %>
+      <div class="form-group label-floating <%= 'is-empty' if @user[:name].blank? %>">
+        <%= f.label :name, class: 'control-label required' %>
+        <%= f.text_field :name, class: 'form-control', required: true %>
+        <span class="text-danger"></span>
+        <span class="text-danger"></span>
+        <span class="material-input"></span>
+        <span class="material-input"></span></div>
+    <% end %>
+    <div class="form-group label-floating <%= 'is-empty' if @user[:email].blank? %>">
+      <%= f.label :email, class: 'control-label required' %>
+      <%= f.email_field :email, class: 'form-control', required: true, autocomplete: 'username' %>
+    </div>
+
+    <%= render 'devise/passwords/password_fields', user: @user, f: f %>
+
+    <div class="form-group">
+      <div class="checkbox">
+        <%= f.label :registration_agreement do %>
+          <%= f.custom_check_box :registration_agreement %> <%= t('registration.agreement_label_html', link: @config_parameters['links.license_agreement']) %>
+        <% end %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.submit 'Continue', class: 'btn btn-raised btn-primary wide btn-card-login-submit' %>
+
+      <%= render partial: 'devise/shared/social_oauth', locals: { title: 'Or sign up with' } %>
+    </div>
+    <div class="down-box">
+      Have an account? <%= link_to('Sign In', new_user_session_path, id: 'btn-signin') %>
+    </div>
+      <% end %>
+  </div>
+</div>

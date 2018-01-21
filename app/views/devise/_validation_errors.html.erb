@@ -1,0 +1,7 @@
+<% unless resource.errors.empty? %>
+  <ul class="auth-validation-errors">
+    <% resource.errors.each do |attribute, msg| %>
+      <li><%= User.human_attribute_name(attribute) %> <%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>

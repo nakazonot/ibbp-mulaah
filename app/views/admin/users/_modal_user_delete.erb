@@ -1,0 +1,26 @@
+<div id="user-delete-modal" class="bootstrap-modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          To confirm that you are going to delete user #<b><span id="modal-user-delete-id"></span></b>
+          with email <b><span id="modal-user-delete-email"></span></b>,
+          please enter their email in input field below:
+        </p>
+        <div class="form-group">
+          <input type="text" class="form-control" id="user-email">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="btn-user-delete">Delete</button>
+        <button type="button" class="btn btn-secondary btn-close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

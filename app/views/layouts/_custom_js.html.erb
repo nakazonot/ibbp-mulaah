@@ -1,0 +1,9 @@
+<% if t('custom_js').present? %>
+  <script type="text/javascript">
+    <%= t('custom_js').html_safe %>
+  </script>
+<% end %>
+
+<% if t('live_chat_html').present? %>
+    <%= t('live_chat_html').html_safe %>
+<% end %>

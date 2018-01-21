@@ -1,0 +1,20 @@
+<%
+  config_params           = Parameter.get_all
+  referral_system_enabled = User.new.ability.can?(:referral_system_enabled, :ico)
+  confirmation_uri        = @confirmation_uri.present? ?
+                                add_param_to_uri(@confirmation_uri, :confirmation_token, @token) :
+                                confirmation_url(@resource, confirmation_token: @token)
+  referral_uri            = @referral_uri.present? ?
+                                add_param_to_uri(@referral_uri, :ref, @resource.referral_uuid) :
+                                referral_link(@resource)
+
+%>
+
+<%= t('message.confirmation_instructions_html',
+      email: @email,
+      confirmation_url: confirmation_uri,
+      coin_tiker: config_params['coin.tiker'],
+      referral_url: referral_system_enabled ? referral_uri : nil,
+      referral_bonus: referral_system_enabled ? percent_format(config_params['user.referral_bonus_percent'].first) : nil
+    )
+%>

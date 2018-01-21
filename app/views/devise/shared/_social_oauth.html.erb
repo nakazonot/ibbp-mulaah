@@ -1,0 +1,15 @@
+<% unless Devise.omniauth_configs.blank? %>
+  <p class="social-btns-title"><%= title %></p>
+  <div class="social-btns">
+    <% if Devise.omniauth_configs[:facebook].present? %>
+      <%= link_to '<i class="fa fa-facebook"></i>Facebook'.html_safe, user_facebook_omniauth_authorize_path,
+                  class: 'btn btn-facebook btn-has-icon ' + (Devise.omniauth_configs.count == 1 ? 'padding-left-zero' : '')
+      %>
+    <% end %>
+    <% if Devise.omniauth_configs[:google_oauth2].present? %>
+      <%= link_to '<i class="fa fa-google"></i>Google'.html_safe, user_google_oauth2_omniauth_authorize_path,
+                  class: 'btn btn-google btn-has-icon ' + (Devise.omniauth_configs.count == 1 ? 'padding-left-zero' : '')
+      %>
+    <% end %>
+  </div>
+<% end %>

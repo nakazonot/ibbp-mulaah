@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="17px" viewBox="0 0 45 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Path 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-611.000000, -878.000000)" stroke="#939393">
+            <g id="Path-6" transform="translate(611.000000, 878.000000)">
+                <path d="M0.468350977,11 L36.0302961,11" transform="translate(18.500000, 11.500000) scale(-1, -1) translate(-18.500000, -11.500000) " stroke="#FF0000" stroke-width="2"></path>
+                <polyline id="Path-7" transform="translate(3.500000, 12.000000) scale(-1, -1) translate(-3.500000, -12.000000) " points="1 7 6 12 1 17"  stroke="#FF0000" stroke-width="2"></polyline>
+                <path d="M8.46835098,4 L44.0302961,4" transform="translate(26.500000, 4.500000) scale(1, -1) translate(-26.500000, -4.500000) "></path>
+                <polyline id="Path-7" transform="translate(41.500000, 5.000000) scale(1, -1) translate(-41.500000, -5.000000) " points="39 0 44 5 39 10"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

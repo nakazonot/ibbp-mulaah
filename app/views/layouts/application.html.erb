@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= render 'layouts/meta_tags' %>
+  <% if content_for(:ibbp_meta_tags) %>
+    <%= yield :ibbp_meta_tags %>
+  <% end %>
+  <%= render 'layouts/google_tag_manager', tag_place: :head %>
+  <%= render 'layouts/google_analytics' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+  <%= csrf_meta_tags %>
+  <style type="text/css"><%= t('custom_css') %></style>
+  <!-- v<%= RailsAppVersioning::Version.new.version_name %> -->
+</head>
+<body id="<%=@body_id%>">
+  <%= render 'layouts/google_tag_manager', tag_place: :body %>
+  <script data-cfasync="false"><%= Gon::Base.render_data(:init => true, :need_tag => false) %></script>
+  <div class="outer-wrap">
+    <%= render 'layouts/header' %>
+    <%= render 'layouts/nav' %>
+    <br>
+
+    <div class="content">
+      <div class="wrap">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'layouts/custom_js'%>
+  <script type="text/javascript">
+    jQuery(document).ready(function($){
+      $.material.init();
+
+      <% flash.each do |type, value| %>
+        <%
+            type = 'error' if 'alert' == type
+            type = 'success' if 'notice' == type
+         %>
+        toastr['<%= type %>']('<%= value %>');
+      <% end %>
+    });
+  </script>
+
+</body>
+</html>

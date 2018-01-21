@@ -1,0 +1,11 @@
+<%= t('message.promo_token_transaction_notification_html',
+      platform_link: root_url,
+      email: @payment.user.email,
+      currency: @payment.currency,
+      contract: @payment.contract,
+      amount: original_number_format(@payment.amount),
+      transaction_id: @payment.id,
+      transaction_date: date_payment_history(@payment.created_at),
+      payment_system: PaymentSystemType.description(@payment.payment_system)
+    )
+%>

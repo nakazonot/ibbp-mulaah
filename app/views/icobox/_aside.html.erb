@@ -1,0 +1,98 @@
+<% if can?(:show_ico_info, :user) %>
+  <div id="aside" class="col-lg-4 col-sm-4 col-xs-12 ">
+    <div class="panel panel-default aside">
+      <div class="panel-body">
+        <%= render 'user_balances' %>
+        <div id="sidebar-coins-info">
+          <% if user_signed_in? %>
+            <div class="divider"></div>
+            <h4><%= t('aside.token_balance_title', coin_name: @config_parameters['coin.name'], coin_tiker: @config_parameters['coin.tiker']) %></h4>
+            <p><%= coins_number_format(@user_totals[:coin_count]) %></p>
+            <div class="divider"></div>
+            <% if can?(:referral_system_enabled, :ico) %>
+              <h4><%= t('aside.referral_token_balance_title', coin_name: @config_parameters['coin.name'], coin_tiker: @config_parameters['coin.tiker']) %></h4>
+              <p><%= coins_number_format(@user_totals[:referral_coin_count]) %></p>
+              <div class="divider"></div>
+            <% end %>
+            <% if can?(:promo_token_enabled, :ico) && @promo_token_balance > 0 %>
+              <div id="aside-promotokens-panel">
+                <h4><%= t('aside.promo_token_balance_title') %></h4>
+                <p><%= @promo_token_balance %></p>
+                <div class="divider"></div>
+              </div>
+            <% end %>
+          <% end %>
+          <h4><%= t('aside.token_price_title', coin_name: @config_parameters['coin.name'], coin_tiker: @config_parameters['coin.tiker']) %></h4>
+          <p class="notranslate">
+            <%= currency_format(@config_parameters['coin.rate'], @config_parameters['coin.rate_currency']) %>
+          </p>
+          <% if @loyalty_program_bonus.present? %>
+            <div class="loyalty-program">
+              <span class="bonus"><%= percent_format(@loyalty_program_bonus.loyalty_program.bonus_percent) %> Bonus</span>
+              <%= t('aside.loyalty_program_description_html',
+                name: @loyalty_program_bonus.loyalty_program.name,
+                expires_time: @loyalty_program_bonus.expires_at.present? ? date_time_with_timezone(@loyalty_program_bonus.expires_at) : 'unlimited',
+                contract: @loyalty_program_bonus.loyalty_program.contract)
+              %><br><br>
+            </div>
+          <% end %>
+          <% if can?(:referral_system, :tokens) && @bonus_referral > 0 %>
+            <span class="bonus"><%= percent_format(@bonus_referral) %> Bonus</span> referral's reward <br>
+          <% end %>
+          <% if @bonus_preference.present? %>
+            <% if @bonus_preference.length == 1 && @bonus_preference.first[:min_investment_amount] == 0 %>
+              <span class="bonus"><%= percent_format(@bonus_preference.first[:bonus_percent]) %> Bonus </span>
+            <% else %>
+              <% @bonus_preference.each do |bonus| %>
+                <span class="bonus"><%= percent_format(bonus[:bonus_percent]) %> Bonus</span>
+                for purchase ≥ <span class="notranslate"><%= original_number_format(bonus[:min_investment_amount]) %> <%= @config_parameters['coin.rate_currency'] %></span><br>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        <div id="sidebar-countdown">
+          <div class="divider"></div>
+          <h4><%= t('aside.timer_title', ico_stage_name: @config_parameters['ico.stage_name']) %></h4>
+          <div id="flipcountdown-box" data-date-end="<%= date_counter_format(@config_parameters['date_end']) %>"></div>
+          <%= render 'flipcountdown_footer' %>
+        </div>
+
+        <% if @config_parameters['system.skip_totals_block_date_to'].blank? || Time.current >= @config_parameters['system.skip_totals_block_date_to'] %>
+          <div id="sidebar-raised">
+            <div class="divider"></div>
+            <h4> <span class="notranslate"><%=@config_parameters['coin.rate_currency'] %></span> Raised</h4>
+            <p> <%=currency_number_format(@total_ico_currency_amount, @config_parameters['coin.rate_currency']) %> </p>
+          </div>
+          <div id="sidebar-total-amount">
+            <div class="divider"></div>
+            <h4><span class="notranslate"><%= @config_parameters['coin.name'] %></span> Tokens Distributed</h4>
+            <p><%= coins_number_format(@amount_of_purchased_tokens) %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div id="sidebar-first-wrap" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 <%=user_signed_in? ? '' : 'sidebar-for-not-signed'%>">
+    <div class="panel panel-default aside">
+      <div class="panel-body">
+        <div id="sidebar-countdown">
+          <h4><%= t('aside.timer_title', ico_stage_name: @config_parameters['ico.stage_name']) %></h4>
+          <div id="flipcountdown-box" data-date-end="<%= date_counter_format(@config_parameters['date_end']) %>"></div>
+          <%= render 'flipcountdown_footer' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% unless user_signed_in? %>
+    <% if can?(:do_sign_up, cookies) %>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
+        <div class="panel panel-default aside">
+          <%= link_to new_user_registration_path do %>
+            <%= button_tag 'sign up', id: 'btn-danger-sidebar', class: 'btn btn-raised btn-danger sign-up-main-page'  %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

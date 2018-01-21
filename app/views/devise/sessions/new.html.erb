@@ -1,0 +1,39 @@
+<div class="card login-card">
+  <div class="card-content text-left">
+    <h4 class="title">Sign in</h4>
+    <br>
+    <% unless can?(:ico_enabled, :ico)%>
+      <div class="alert alert-dismissible alert-danger"><center>The ICO is closed</center></div>
+    <% end %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), method: :post) do |f| %>
+      <br>
+      <%= render 'validation_errors' %>
+      <div class="form-group label-floating <%= 'is-empty' if @user[:email].blank? %>">
+        <%= f.label :email, class: 'control-label required' %>
+        <%= f.email_field :email, class: 'form-control', required: true %>
+        <span class="text-danger"></span>
+        <span class="text-danger"></span>
+        <span class="material-input"></span>
+        <span class="material-input"></span></div>
+      <div class="form-group label-floating <%= 'is-empty' if @user[:password].blank? %>">
+        <%= f.label :password, class: 'control-label required' %>
+        <%= f.password_field :password, class: 'form-control', required: true %>
+        <span class="material-input"></span>
+        <span class="material-input"></span>
+      </div>
+      <div class="text-center">
+        <p>Forgot password <%= link_to('Remind', new_user_password_path) %></p>
+        <p><%= link_to("Didn't receive confirmation instructions?", new_user_confirmation_path) %></p>
+      </div>
+      <div class="form-group">
+        <%= f.submit 'Login', class: 'btn btn-raised btn-primary wide btn-card-login-submit' %>
+        <%= render partial: 'devise/shared/social_oauth', locals: { title: 'Or sign in with' } %>
+      </div>
+      <% if can?(:ico_enabled, :ico) && can?(:do_sign_up, cookies)%>
+        <div class="down-box">
+          No account? <%= link_to('Sign Up', new_user_registration_path, class: 'sign-up-devise-page') %>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+</div>
