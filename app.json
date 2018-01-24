@@ -1,0 +1,31 @@
+{
+  "name": "ibbp-mulaah",
+  "scripts": {
+  },
+  "env": {
+    "LOGDNA_KEY": {
+      "required": true
+    },
+    "REDISTOGO_URL": {
+      "required": true
+    },
+    "ROLLBAR_ACCESS_TOKEN": {
+      "required": true
+    },
+    "ROLLBAR_ENDPOINT": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "logdna",
+    "heroku-postgresql",
+    "redistogo",
+    "rollbar",
+    "scheduler"
+  ],
+  "buildpacks": [
+
+  ]
+}
